@@ -14,17 +14,19 @@ public List<TreeNode> initTree(int[] arrs) {
 		for (int data : arrs) {
 			nodes.add(new TreeNode(data));
 		}
-		//arrs.length / 2 - 1是确保最后一个节点的左右子节点都存在 
+		//此处每个父节点的index < (arrs.length / 2 - 1)是确保每个父节点的左右子节点都存在 
 		for (int parentIndex = 0; parentIndex < arrs.length / 2 - 1; parentIndex++) {
 			nodes.get(parentIndex).leftNode = nodes.get(parentIndex * 2 + 1);
 			nodes.get(parentIndex).rightNode = nodes.get(parentIndex * 2 + 2); 
 		}
-		
-		int lastParentIndex = arrs.length / 2 - 1;
+		//(arrs.length / 2 - 1)最后一个父节点，通过二叉树的定义可知		
+                int lastParentIndex = arrs.length / 2 - 1;
 		nodes.get(lastParentIndex).leftNode = nodes.get(lastParentIndex * 2 + 1);
-		if(arrs.length % 2 != 0){
+		//arrs.length % 2 != 0,作为判断最后一个父节点的右子节点是否存在的判断条件		
+                if(arrs.length % 2 != 0){
 			nodes.get(lastParentIndex).rightNode = nodes.get(lastParentIndex * 2 + 2);
 		}
 		return nodes;
 }
 ```
+上述方法中提到的TreeNode对象在code(src.test.TreeNode)中可以查看。
