@@ -101,4 +101,5 @@ public List<TreeNode> initTree(int[] arrs) {
 demo中设置的二叉树的结构为:<br />
 ![](http://blog.tommyyang.cn/img/binary-tree.png)<br />
 RunTest结果如下:<br />
+
 ![](http://blog.tommyyang.cn/img/binarytree-result.png)
