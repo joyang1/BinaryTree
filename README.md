@@ -7,7 +7,7 @@
 
 ## Create Binary Tree Using Java
 
----
+```sh
 //arrs为放入到树节点的数据，demo中将int类型的数据置入节点中
 public List<TreeNode> initTree(int[] arrs) {
 		List<TreeNode> nodes = new ArrayList<TreeNode>();
@@ -27,4 +27,4 @@ public List<TreeNode> initTree(int[] arrs) {
 		}
 		return nodes;
 }
----
+```sh
