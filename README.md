@@ -31,7 +31,7 @@ public List<TreeNode> initTree(int[] arrs) {
 ```
 上述方法中提到的TreeNode对象在code(src.test.TreeNode)中可以查看。
 
-##三种遍历方式
+## 三种遍历方式
 
 (1). 先序遍历
 (2). 中序遍历
@@ -41,7 +41,7 @@ public List<TreeNode> initTree(int[] arrs) {
 中序遍历: "左根右"，遍历的顺序: 左节点->根节点->右节点。
 后序遍历: "左右根"，遍历的顺序: 左节点->右节点->根节点。
 
-##先序遍历
+## 先序遍历
 
 ```sh
 	/*
@@ -59,7 +59,7 @@ public List<TreeNode> initTree(int[] arrs) {
 	}
 ```
 
-##中序遍历
+## 中序遍历
 
 ```sh
 	/*
@@ -76,7 +76,7 @@ public List<TreeNode> initTree(int[] arrs) {
 		inOrderTraverse(node.rightNode); //递归输出右节点
 	}
 ```
-##后序遍历
+## 后序遍历
 
 ```sh
 	/*
@@ -93,3 +93,12 @@ public List<TreeNode> initTree(int[] arrs) {
 		System.out.print(node.data + " ");
 	}
 ```
+
+## how to run code
+1. 将代码clone到本地，使用eclipse导入代码，导入的时候项目的类型选择"git project"。
+2. 找到src/test/RunTest.java，右键 run as java appalication.
+
+demo中设置的二叉树的结构为:<br />
+![](http://blog.tommyyang.cn/img/binary-tree.png)
+RunTest结果如下:<br />
+![](http://blog.tommyyang.cn/img/binarytree-result.png)
