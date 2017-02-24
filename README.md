@@ -99,6 +99,6 @@ public List<TreeNode> initTree(int[] arrs) {
 2. 找到src/test/RunTest.java，右键 run as java appalication.
 
 demo中设置的二叉树的结构为:<br />
-![](http://blog.tommyyang.cn/img/binary-tree.png)
+![](http://blog.tommyyang.cn/img/binary-tree.png)<br />
 RunTest结果如下:<br />
 ![](http://blog.tommyyang.cn/img/binarytree-result.png)
