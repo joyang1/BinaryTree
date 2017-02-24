@@ -27,4 +27,4 @@ public List<TreeNode> initTree(int[] arrs) {
 		}
 		return nodes;
 }
-```sh
+```
