@@ -30,3 +30,66 @@ public List<TreeNode> initTree(int[] arrs) {
 }
 ```
 上述方法中提到的TreeNode对象在code(src.test.TreeNode)中可以查看。
+
+##三种遍历方式
+
+(1). 先序遍历
+(2). 中序遍历
+(3). 后序遍历
+三种遍历方式，也就是遍历的顺序不一样。
+先序遍历: "根左右"，遍历的顺序: 根节点->左节点->右节点。
+中序遍历: "左根右"，遍历的顺序: 左节点->根节点->右节点。
+后序遍历: "左右根"，遍历的顺序: 左节点->右节点->根节点。
+
+##先序遍历
+
+```sh
+	/*
+	 * 先序遍历二叉树： 根左右
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void preOrderTraverse(TreeNode node){
+		if(node == null)
+			return;
+		System.out.print(node.data + " "); //第一次进来是rootNode
+		preOrderTraverse(node.leftNode);  //递归输出左节点		
+                preOrderTraverse(node.rightNode); //递归输出右节点
+	}
+```
+
+##中序遍历
+
+```sh
+	/*
+	 * 中序遍历二叉树： 左根右
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void inOrderTraverse(TreeNode node){
+		if(node == null)
+			return;
+		inOrderTraverse(node.leftNode); //递归输出左节点
+		System.out.print(node.data + " "); 
+		inOrderTraverse(node.rightNode); //递归输出右节点
+	}
+```
+##后序遍历
+
+```sh
+	/*
+	 * 后序遍历二叉树： 左右根
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void afterOrderTraverse(TreeNode node){
+		if(node == null)
+			return;
+		afterOrderTraverse(node.leftNode);//递归输出左节点
+		afterOrderTraverse(node.rightNode);//递归输出右节点
+		System.out.print(node.data + " ");
+	}
+```
