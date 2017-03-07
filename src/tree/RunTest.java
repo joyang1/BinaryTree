@@ -10,13 +10,19 @@ public class RunTest {
 		List<TreeNode> binaryTreeNodes = binaryTree.initTree(arrs);
 		TreeNode rootNode = binaryTreeNodes.get(0);
 		//先序遍历结果
-		System.out.println("先序遍历结果: ");
+		System.out.println("递归先序遍历结果: ");
 		binaryTree.preOrderTraverse(rootNode);
+		System.out.println("\n循环先序遍历结果: ");
+		binaryTree.preOrderTraverseByWhile(rootNode);
 		//中序遍历结果
 		System.out.println("\n中序遍历结果: ");
 		binaryTree.inOrderTraverse(rootNode);
+		System.out.println("\n循环中序遍历结果: ");
+		binaryTree.inOrderTraverse(rootNode);
 		//后序遍历结果
 		System.out.println("\n后序遍历结果: ");
-		binaryTree.afterOrderTraverse(rootNode);		
+		binaryTree.afterOrderTraverse(rootNode);
+		System.out.println("\n循环后序遍历结果: ");
+		binaryTree.afterOrderTraverseByWhile(rootNode);
 	}	
 }

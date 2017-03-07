@@ -1,6 +1,7 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BinaryTree {
@@ -26,6 +27,8 @@ public class BinaryTree {
 	/*
 	 * 先序遍历二叉树： 根左右
 	 * 
+	 * 使用递归
+	 * 
 	 * @param node
 	 *       遍历的节点
 	 * */
@@ -37,14 +40,34 @@ public class BinaryTree {
 		preOrderTraverse(node.rightNode);
 	}
 	
-//	public void preOrderTraverse1(List<TreeNode> nodes){
-//		for (TreeNode node : nodes) {
-//			
-//		}
-//	}
+	/*
+	 * 先序遍历二叉树： 根左右
+	 * 
+	 * 使用循环
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void preOrderTraverseByWhile(TreeNode node){
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		stack.push(node);
+		TreeNode currentNode;
+		while (!stack.isEmpty()) {
+			currentNode = stack.pop();
+			System.out.print(currentNode.data + " ");
+			if(currentNode.rightNode != null){
+				stack.push(currentNode.rightNode);
+			}
+			if (currentNode.leftNode != null) {
+				stack.push(currentNode.leftNode);
+			}
+		}
+	}
 	
 	/*
 	 * 中序遍历二叉树： 左根右
+	 * 
+	 * 使用递归
 	 * 
 	 * @param node
 	 *       遍历的节点
@@ -52,13 +75,39 @@ public class BinaryTree {
 	public void inOrderTraverse(TreeNode node){
 		if(node == null)
 			return;
-		inOrderTraverse(node.leftNode);
-		System.out.print(node.data + " ");
-		inOrderTraverse(node.rightNode);
+		inOrderTraverse(node.leftNode); //递归输出左节点
+		System.out.print(node.data + " "); 
+		inOrderTraverse(node.rightNode); //递归输出右节点
+	}
+	
+	/*
+	 * 中序遍历二叉树： 左根右
+	 * 
+	 * 使用循环
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void inOrderTraverseByWhile(TreeNode node){
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		TreeNode currentNode = node;
+		while (currentNode != null || !stack.isEmpty()) {
+			while(currentNode != null){
+				stack.push(currentNode);
+				currentNode = currentNode.leftNode;
+			}
+			if(!stack.isEmpty()){
+				currentNode = stack.pop();
+				System.out.print(currentNode.data + "");
+				currentNode = currentNode.rightNode;
+			}
+		}
 	}
 	
 	/*
 	 * 后序遍历二叉树： 左右根
+	 * 
+	 *  使用递归
 	 * 
 	 * @param node
 	 *       遍历的节点
@@ -66,8 +115,40 @@ public class BinaryTree {
 	public void afterOrderTraverse(TreeNode node){
 		if(node == null)
 			return;
-		afterOrderTraverse(node.leftNode);
-		afterOrderTraverse(node.rightNode);
+		afterOrderTraverse(node.leftNode);//递归输出左节点
+		afterOrderTraverse(node.rightNode);//递归输出右节点
 		System.out.print(node.data + " ");
+	}
+	
+	/*
+	 * 后序遍历二叉树： 左右根
+	 * 
+	 *  使用循环
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void afterOrderTraverseByWhile(TreeNode node){
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		TreeNode rightNode = null;
+		TreeNode currentNode = node;
+		while (currentNode != null || !stack.isEmpty()) {
+			while(currentNode != null){
+				stack.push(currentNode);
+				currentNode = currentNode.leftNode;
+			}
+			currentNode = stack.pop();
+			//当上一个访问的结点是右孩子或者当前结点没有右孩子则访问当前结点
+			while(currentNode != null && (currentNode.rightNode == null || currentNode.rightNode == rightNode)){
+				System.out.print(currentNode.data + " ");
+				rightNode = currentNode;
+				if(stack.isEmpty()){
+					return;
+				}
+				currentNode = stack.pop();
+			}
+			stack.push(currentNode);
+			currentNode = currentNode.rightNode;
+		}
 	}
 }
