@@ -15,7 +15,6 @@ public class BinaryTree {
 			nodes.get(parentIndex).leftNode = nodes.get(parentIndex * 2 + 1);
 			nodes.get(parentIndex).rightNode = nodes.get(parentIndex * 2 + 2); 
 		}
-		
 		int lastParentIndex = arrs.length / 2 - 1;
 		nodes.get(lastParentIndex).leftNode = nodes.get(lastParentIndex * 2 + 1);
 		if(arrs.length % 2 != 0){
