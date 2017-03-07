@@ -30,7 +30,7 @@ public class BinaryTree {
 	 * 使用递归
 	 * 
 	 * @param node
-	 *       遍历的节点
+	 *      遍历的节点
 	 * */
 	public void preOrderTraverse(TreeNode node){
 		if(node == null)
