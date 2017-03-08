@@ -43,6 +43,7 @@ public List<TreeNode> initTree(int[] arrs) {
 
 ## 先序遍历
 
+使用递归
 ```sh
 	/*
 	 * 先序遍历二叉树： 根左右
@@ -59,8 +60,36 @@ public List<TreeNode> initTree(int[] arrs) {
 	}
 ```
 
+使用循环
+```sh
+	/*
+	 * 先序遍历二叉树： 根左右
+	 * 
+	 * 使用循环
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void preOrderTraverseByWhile(TreeNode node){
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		stack.push(node);
+		TreeNode currentNode;
+		while (!stack.isEmpty()) {
+			currentNode = stack.pop();
+			System.out.print(currentNode.data + " ");
+			if(currentNode.rightNode != null){
+				stack.push(currentNode.rightNode);
+			}
+			if (currentNode.leftNode != null) {
+				stack.push(currentNode.leftNode);
+			}
+		}
+	}
+```
+
 ## 中序遍历
 
+使用递归
 ```sh
 	/*
 	 * 中序遍历二叉树： 左根右
@@ -76,8 +105,37 @@ public List<TreeNode> initTree(int[] arrs) {
 		inOrderTraverse(node.rightNode); //递归输出右节点
 	}
 ```
+
+使用循环
+```sh
+	/*
+	 * 中序遍历二叉树： 左根右
+	 * 
+	 * 使用循环
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void inOrderTraverseByWhile(TreeNode node){
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		TreeNode currentNode = node;
+		while (currentNode != null || !stack.isEmpty()) {
+			while(currentNode != null){
+				stack.push(currentNode);
+				currentNode = currentNode.leftNode;
+			}
+			if(!stack.isEmpty()){
+				currentNode = stack.pop();
+				System.out.print(currentNode.data + "");
+				currentNode = currentNode.rightNode;
+			}
+		}
+	}
+```
+
 ## 后序遍历
 
+使用递归
 ```sh
 	/*
 	 * 后序遍历二叉树： 左右根
@@ -94,6 +152,41 @@ public List<TreeNode> initTree(int[] arrs) {
 	}
 ```
 
+使用循环
+```sh
+	/*
+	 * 后序遍历二叉树： 左右根
+	 * 
+	 *  使用循环
+	 * 
+	 * @param node
+	 *       遍历的节点
+	 * */
+	public void afterOrderTraverseByWhile(TreeNode node){
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		TreeNode rightNode = null;
+		TreeNode currentNode = node;
+		while (currentNode != null || !stack.isEmpty()) {
+			while(currentNode != null){
+				stack.push(currentNode);
+				currentNode = currentNode.leftNode;
+			}
+			currentNode = stack.pop();
+			//当上一个访问的结点是右孩子或者当前结点没有右孩子则访问当前结点
+			while(currentNode != null && (currentNode.rightNode == null || currentNode.rightNode == rightNode)){
+				System.out.print(currentNode.data + " ");
+				rightNode = currentNode;
+				if(stack.isEmpty()){
+					return;
+				}
+				currentNode = stack.pop();
+			}
+			stack.push(currentNode);
+			currentNode = currentNode.rightNode;
+		}
+	}
+```
+
 ## how to run code
 1. 将代码clone到本地，使用eclipse导入代码，导入的时候项目的类型选择"git project"。
 2. 找到src/test/RunTest.java，右键 run as java appalication.
@@ -102,4 +195,4 @@ demo中设置的二叉树的结构为:<br />
 ![](http://blog.tommyyang.cn/img/binary-tree.png)<br />
 RunTest结果如下:<br />
 
-![](http://blog.tommyyang.cn/img/binarytree-result.png)
+![](http://blog.tommyyang.cn/img/binarytree-xunhuanresult.png)
