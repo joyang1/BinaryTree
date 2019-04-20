@@ -5,149 +5,294 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BinaryTree {
-	public List<TreeNode> initTree(int[] arrs) {
-		List<TreeNode> nodes = new ArrayList<TreeNode>();
-		for (int data : arrs) {
-			nodes.add(new TreeNode(data));
-		}
-		//arrs.length / 2 - 1是确保最后一个节点的左右子节点都存在 
-		for (int parentIndex = 0; parentIndex < arrs.length / 2 - 1; parentIndex++) {
-			nodes.get(parentIndex).leftNode = nodes.get(parentIndex * 2 + 1);
-			nodes.get(parentIndex).rightNode = nodes.get(parentIndex * 2 + 2); 
-		}
-		int lastParentIndex = arrs.length / 2 - 1;
-		nodes.get(lastParentIndex).leftNode = nodes.get(lastParentIndex * 2 + 1);
-		if(arrs.length % 2 != 0){
-			nodes.get(lastParentIndex).rightNode = nodes.get(lastParentIndex * 2 + 2);
-		}
-		return nodes;
-	}
-	
-	/*
-	 * 先序遍历二叉树： 根左右
-	 * 
-	 * 使用递归
-	 * 
-	 * @param node
-	 *      遍历的节点
-	 * */
-	public void preOrderTraverse(TreeNode node){
-		if(node == null)
-			return;
-		System.out.print(node.data + " ");
-		preOrderTraverse(node.leftNode);
-		preOrderTraverse(node.rightNode);
-	}
-	
-	/*
-	 * 先序遍历二叉树： 根左右
-	 * 
-	 * 使用循环
-	 * 
-	 * @param node
-	 *       遍历的节点
-	 * */
-	public void preOrderTraverseByWhile(TreeNode node){
-		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
-		stack.push(node);
-		TreeNode currentNode;
-		while (!stack.isEmpty()) {
-			currentNode = stack.pop();
-			System.out.print(currentNode.data + " ");
-			if(currentNode.rightNode != null){
-				stack.push(currentNode.rightNode);
-			}
-			if (currentNode.leftNode != null) {
-				stack.push(currentNode.leftNode);
-			}
-		}
-	}
-	
-	/*
-	 * 中序遍历二叉树： 左根右
-	 * 
-	 * 使用递归
-	 * 
-	 * @param node
-	 *       遍历的节点
-	 * */
-	public void inOrderTraverse(TreeNode node){
-		if(node == null)
-			return;
-		inOrderTraverse(node.leftNode); //递归输出左节点
-		System.out.print(node.data + " "); 
-		inOrderTraverse(node.rightNode); //递归输出右节点
-	}
-	
-	/*
-	 * 中序遍历二叉树： 左根右
-	 * 
-	 * 使用循环
-	 * 
-	 * @param node
-	 *       遍历的节点
-	 * */
-	public void inOrderTraverseByWhile(TreeNode node){
-		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
-		TreeNode currentNode = node;
-		while (currentNode != null || !stack.isEmpty()) {
-			while(currentNode != null){
-				stack.push(currentNode);
-				currentNode = currentNode.leftNode;
-			}
-			if(!stack.isEmpty()){
-				currentNode = stack.pop();
-				System.out.print(currentNode.data + "");
-				currentNode = currentNode.rightNode;
-			}
-		}
-	}
-	
-	/*
-	 * 后序遍历二叉树： 左右根
-	 * 
-	 *  使用递归
-	 * 
-	 * @param node
-	 *       遍历的节点
-	 * */
-	public void afterOrderTraverse(TreeNode node){
-		if(node == null)
-			return;
-		afterOrderTraverse(node.leftNode);//递归输出左节点
-		afterOrderTraverse(node.rightNode);//递归输出右节点
-		System.out.print(node.data + " ");
-	}
-	
-	/*
-	 * 后序遍历二叉树： 左右根
-	 * 
-	 *  使用循环
-	 * 
-	 * @param node
-	 *       遍历的节点
-	 * */
-	public void afterOrderTraverseByWhile(TreeNode node){
-		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
-		TreeNode rightNode = null;
-		TreeNode currentNode = node;
-		while (currentNode != null || !stack.isEmpty()) {
-			while(currentNode != null){
-				stack.push(currentNode);
-				currentNode = currentNode.leftNode;
-			}
-			currentNode = stack.pop();
-			//当上一个访问的结点是右孩子或者当前结点没有右孩子则访问当前结点
-			while(currentNode != null && (currentNode.rightNode == null || currentNode.rightNode == rightNode)){
-				System.out.print(currentNode.data + " ");
-				rightNode = currentNode;
-				if(stack.isEmpty()){
-					return;
-				}
-				currentNode = stack.pop();
-			}
-			stack.push(currentNode);
-			currentNode = currentNode.rightNode;
-		}
-	}
+
+    private BinaryTreeNode root;
+
+    public BinaryTree() {
+    }
+
+    public BinaryTree(BinaryTreeNode root) {
+        this.root = root;
+    }
+
+    public BinaryTreeNode getRoot() {
+        return root;
+    }
+
+    public void setRoot(BinaryTreeNode root) {
+        this.root = root;
+    }
+
+    public List<BinaryTreeNode> initTree(int[] arrs) {
+        List<BinaryTreeNode> nodes = new ArrayList<BinaryTreeNode>();
+        for (int data : arrs) {
+            nodes.add(new BinaryTreeNode(data));
+        }
+        //arrs.length / 2 - 1是确保最后一个节点的左右子节点都存在
+        for (int parentIndex = 0; parentIndex < arrs.length / 2 - 1; parentIndex++) {
+            nodes.get(parentIndex).setLeftNode(nodes.get(parentIndex * 2 + 1));
+            nodes.get(parentIndex).setRightNode(nodes.get(parentIndex * 2 + 2));
+        }
+        int lastParentIndex = arrs.length / 2 - 1;
+        nodes.get(lastParentIndex).setLeftNode(nodes.get(lastParentIndex * 2 + 1));
+        if (arrs.length % 2 != 0) {
+            nodes.get(lastParentIndex).setRightNode(nodes.get(lastParentIndex * 2 + 2));
+        }
+        return nodes;
+    }
+
+
+    /**
+     * 添加左结点
+     *
+     * @param child 添加该结点到左子树
+     */
+    public void setLeftChild(BinaryTreeNode child) {
+        this.root.setLeftNode(child);
+    }
+
+    /**
+     * 添加右结点
+     *
+     * @param child 添加该结点到右子树
+     */
+    public void setRightChild(BinaryTreeNode child) {
+        this.root.setRightNode(child);
+    }
+
+    /**
+     * 删除结点
+     *
+     * @param node 删除该节点
+     * @return
+     */
+    public void deleteNode(BinaryTreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        deleteNode(node.getLeftNode());
+        deleteNode(node.getRightNode());
+        node = null;
+    }
+
+    /**
+     * 清空二叉树
+     *
+     * @return
+     */
+
+    public void clear() {
+        if (this.root != null) {
+            this.deleteNode(this.root);
+        }
+    }
+
+    /**
+     * 获取二叉树指定结点的高度
+     *
+     * @param node 获取该节点的高度
+     */
+    public int getHeight(BinaryTreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        return Math.max(getHeight(node.getLeftNode()), getHeight(node.getRightNode())) + 1;
+    }
+
+    /**
+     * 获取二叉树的高度
+     *
+     * @return int
+     */
+    public int getTreeHeight() {
+        return this.getHeight(this.root);
+    }
+
+    /**
+     * 获取二叉树指定节点的节点个数(包括指定节点)
+     *
+     * @param node 获取该节点的节点数
+     * @return int
+     */
+    public int getChildSize(BinaryTreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+
+        int leftSize = getChildSize(node.getLeftNode());
+        int rightSize = getChildSize(node.getRightNode());
+
+        return leftSize + rightSize + 1;
+    }
+
+    /**
+     * 获取二叉树的节点数
+     *
+     * @return int
+     */
+    public int getSize() {
+        return this.getChildSize(this.root);
+    }
+
+    /**
+     * 获取指定节点的父亲节点
+     *
+     * @param node
+     * @return BinaryTreeNode
+     */
+    public BinaryTreeNode getParent(BinaryTreeNode node) {
+        if (this.root == null || this.root == node) {
+            return null;
+        }
+        return getParent(this.root, node);
+    }
+
+    /**
+     * 递归对比 节点的孩子节点 与 指定节点 是否一致
+     *
+     * @param subTree 子二叉树根节点
+     * @param node    指定节点
+     * @return
+     */
+    public BinaryTreeNode getParent(BinaryTreeNode subTree, BinaryTreeNode node) {
+        if (subTree == null){
+            return null;
+        }
+
+        if (subTree.getLeftNode() == node || subTree.getRightNode() == node){
+            return subTree;
+        }
+
+        BinaryTreeNode parent;
+        if((parent = getParent(subTree.getLeftNode(), node)) != null){
+            return parent;
+        }
+
+        return getParent(subTree.getRightNode(), node);
+    }
+
+    /**
+     * 先序遍历二叉树： 根左右
+     * <p>
+     * 使用递归
+     *
+     * @param node 遍历的节点
+     */
+    public void preOrderTraverse(BinaryTreeNode node) {
+        if (node == null)
+            return;
+        System.out.print(node.data + " ");
+        preOrderTraverse(node.getLeftNode());
+        preOrderTraverse(node.getRightNode());
+    }
+
+    /**
+     * 先序遍历二叉树： 根左右
+     * <p>
+     * 使用循环
+     *
+     * @param node 遍历的节点
+     */
+    public void preOrderTraverseByWhile(BinaryTreeNode node) {
+        LinkedList<BinaryTreeNode> stack = new LinkedList<BinaryTreeNode>();
+        stack.push(node);
+        BinaryTreeNode currentNode;
+        while (!stack.isEmpty()) {
+            currentNode = stack.pop();
+            System.out.print(currentNode.data + " ");
+            if (currentNode.getRightNode() != null) {
+                stack.push(currentNode.getRightNode());
+            }
+            if (currentNode.getLeftNode() != null) {
+                stack.push(currentNode.getLeftNode());
+            }
+        }
+    }
+
+    /**
+     * 中序遍历二叉树： 左根右
+     * <p>
+     * 使用递归
+     *
+     * @param node 遍历的节点
+     */
+    public void inOrderTraverse(BinaryTreeNode node) {
+        if (node == null)
+            return;
+        inOrderTraverse(node.getLeftNode()); //递归输出左节点
+        System.out.print(node.data + " ");
+        inOrderTraverse(node.getRightNode()); //递归输出右节点
+    }
+
+    /**
+     * 中序遍历二叉树： 左根右
+     * <p>
+     * 使用循环
+     *
+     * @param node 遍历的节点
+     */
+    public void inOrderTraverseByWhile(BinaryTreeNode node) {
+        LinkedList<BinaryTreeNode> stack = new LinkedList<BinaryTreeNode>();
+        BinaryTreeNode currentNode = node;
+        while (currentNode != null || !stack.isEmpty()) {
+            while (currentNode != null) {
+                stack.push(currentNode);
+                currentNode = currentNode.getLeftNode();
+            }
+            if (!stack.isEmpty()) {
+                currentNode = stack.pop();
+                System.out.print(currentNode.data + "");
+                currentNode = currentNode.getRightNode();
+            }
+        }
+    }
+
+    /**
+     * 后序遍历二叉树： 左右根
+     * <p>
+     * 使用递归
+     *
+     * @param node 遍历的节点
+     */
+    public void afterOrderTraverse(BinaryTreeNode node) {
+        if (node == null)
+            return;
+        afterOrderTraverse(node.getLeftNode());//递归输出左节点
+        afterOrderTraverse(node.getRightNode());//递归输出右节点
+        System.out.print(node.data + " ");
+    }
+
+    /**
+     * 后序遍历二叉树： 左右根
+     * <p>
+     * 使用循环
+     *
+     * @param node 遍历的节点
+     */
+    public void afterOrderTraverseByWhile(BinaryTreeNode node) {
+        LinkedList<BinaryTreeNode> stack = new LinkedList<BinaryTreeNode>();
+        BinaryTreeNode rightNode = null;
+        BinaryTreeNode currentNode = node;
+        while (currentNode != null || !stack.isEmpty()) {
+            while (currentNode != null) {
+                stack.push(currentNode);
+                currentNode = currentNode.getLeftNode();
+            }
+            currentNode = stack.pop();
+            //当上一个访问的结点是右孩子或者当前结点没有右孩子则访问当前结点
+            while (currentNode != null && (currentNode.getRightNode() == null
+                    || currentNode.getRightNode() == rightNode)) {
+                System.out.print(currentNode.data + " ");
+                rightNode = currentNode;
+                if (stack.isEmpty()) {
+                    return;
+                }
+                currentNode = stack.pop();
+            }
+            stack.push(currentNode);
+            currentNode = currentNode.getRightNode();
+        }
+    }
 }

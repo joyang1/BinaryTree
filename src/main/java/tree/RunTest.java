@@ -7,8 +7,13 @@ public class RunTest {
 		//假设二叉树中的数据为： 1,2,3,4,5,6,7,8,9从上到下，从左至右
 		int[] arrs = new int[]{1,2,3,4,5,6,7,8,9};
 		BinaryTree binaryTree = new BinaryTree();
-		List<TreeNode> binaryTreeNodes = binaryTree.initTree(arrs);
-		TreeNode rootNode = binaryTreeNodes.get(0);
+		List<BinaryTreeNode> binaryTreeNodes = binaryTree.initTree(arrs);
+		BinaryTreeNode rootNode = binaryTreeNodes.get(0);
+		binaryTree.setRoot(binaryTreeNodes.get(0));
+
+		System.out.println(binaryTree.getTreeHeight());
+		System.out.println(binaryTree.getSize());
+
 		//先序遍历结果
 		System.out.println("递归先序遍历结果: ");
 		binaryTree.preOrderTraverse(rootNode);
